@@ -1,0 +1,5 @@
+target 'ZYRequestDemo' do
+
+pod 'ZYRequest', :path=>'~> ../ZYRequest/'
+
+end

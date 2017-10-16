@@ -1,16 +1,16 @@
 //
-//  TCRequestModel.m
-//  TCToTeather
+//  ZTRequestModel.m
+//  ZTRequest
 //
 //  Created by mygame on 15/9/28.
 //  Copyright © 2015年 youwoxing. All rights reserved.
 //
 
-#import "TCRequestModel.h"
-#import "TCManager+AppInfo.h"
+#import "ZTRequestModel.h"
+//#import "TCManager+AppInfo.h"
 #import <BFKit/BFCryptor.h>
-#import "AppDelegate.h"
-#import "TCNavigationVC.h"
+//#import "AppDelegate.h"
+//#import "TCNavigationVC.h"
 
 #if DEBUG
 static NSString *const PYTHONROOTURL = @"http://safetest.tou-cool.com:8080/"; /// 测试服url
@@ -35,7 +35,7 @@ static NSString *const kHTTPHeaderToken     = @"token";///< 登入 token
 @end
 
 
-@implementation TCRequestModel
+@implementation ZTRequestModel
 {
     AFHTTPSessionManager *_manager;
 }
@@ -85,11 +85,11 @@ static NSString *const kHTTPHeaderToken     = @"token";///< 登入 token
 //        }
     }
     
-    // 网络判断
-    if (kTCReachabilityStatus == TCReachabilityWWANStatusNone) {
-        TCMain_async_safe2(failure, nil, [NSError noReachilityError]);
-        return;
-    }
+//    // 网络判断
+//    if (kTCReachabilityStatus == TCReachabilityWWANStatusNone) {
+//        TCMain_async_safe2(failure, nil, [NSError noReachilityError]);
+//        return;
+//    }
     
     // 网络请求
     if (extendBody) { // 表单形式-文件上传
@@ -147,7 +147,7 @@ static NSString *const kHTTPHeaderToken     = @"token";///< 登入 token
                        TCSafeCallblock2(success, [task requestURLString], responseObject);
                        
                        // 权限、服务器检测
-                       [TCRequestModel checkResponseObject:responseObject];
+                       [ZTRequestModel checkResponseObject:responseObject];
                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                        TCSafeCallblock2(failure, [task requestURLString], error);
                    }];
@@ -172,7 +172,7 @@ static NSString *const kHTTPHeaderToken     = @"token";///< 登入 token
                 TCSafeCallblock2(success, [task requestURLString], responseObject);
                 
                 // 权限、服务器检测
-                [TCRequestModel checkResponseObject:responseObject];
+                [ZTRequestModel checkResponseObject:responseObject];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 TCSafeCallblock2(failure, [task requestURLString], error);
             }];
@@ -185,7 +185,7 @@ static NSString *const kHTTPHeaderToken     = @"token";///< 登入 token
                 TCSafeCallblock2(success, [task requestURLString], responseObject);
                 
                 // 权限、服务器检测
-                [TCRequestModel checkResponseObject:responseObject];
+                [ZTRequestModel checkResponseObject:responseObject];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 TCSafeCallblock2(failure, [task requestURLString], error);
             }];

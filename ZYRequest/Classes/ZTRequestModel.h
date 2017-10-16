@@ -1,6 +1,6 @@
 //
-//  TCRequestModel.h
-//  TCToTeather
+//  ZTRequestModel.h
+//  ZTRequest
 //
 //  Created by mygame on 15/9/28.
 //  Copyright © 2015年 youwoxing. All rights reserved.
@@ -8,14 +8,39 @@
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
-#import "TCMacroProtocol.h"
-#import "TCRespBaseModel.h"
+//#import "TCMacroProtocol.h"
+//#import "TCRespBaseModel.h"
 
 static NSString *const TCPOST = @"POST"; ///< POST请求
-static NSString *const TCGET = @"GET"; ///< GET请求
+static NSString *const TCGET  = @"GET"; ///< GET请求
+
+typedef NS_ENUM(NSInteger, ZTReachabilityWWANStatus) {
+    ZTReachabilityWWANStatusNone = 0,///< Not Reachable vis WWAN
+    ZTReachabilityWWANStatusWiFi = 1,///< Reachable vis WiFi
+    ZTReachabilityWWANStatus2G   = 2,///< Reachable via 2G (GPRS/EDGE)       10~100Kbps
+    ZTReachabilityWWANStatus3G   = 3,///< Reachable via 3G (WCDMA/HSDPA/...) 1~10Mbps
+    ZTReachabilityWWANStatus4G   = 4,///< Reachable via 4G (eHRPD/LTE)       100Mbps
+};
+
+@protocol ZTRequestModelProtocol
+@required
+
+@property (strong, nonatomic) NSString *hostUrl; ///< host+port
+
+@property (assign, nonatomic) NSUInteger reachabilityStatus; ///< ZTReachabilityWWANStatus
+
+/**
+ *  请求异常处理（包括：服务器维护，鉴权失败，该用户已经被拉黑）
+ *
+ *  @param responseObject 错误 HTTP 请求结果
+ */
++ (void)checkResponseObject:(id)responseObject;
+@end
 
 /// 协议请求model
-@interface TCRequestModel : NSObject
+@interface ZTRequestModel : NSObject
+
+
 - (AFHTTPSessionManager *)manager;
 
 /// 请求URLString的MD5
